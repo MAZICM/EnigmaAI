@@ -8,3 +8,4 @@ venv/
 Fire-Detection-6
 forest-fire-detection-9/
 train/*/weights/
+runs/Streams/*.mp4

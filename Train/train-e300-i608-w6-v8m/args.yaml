@@ -1,6 +1,6 @@
 task: detect
 mode: train
-model: C:\Users\pc\Github\EnigmaAI\Train\train-e300-i608-w6-v8s\weights\last.pt
+model: C:\Users\pc\Github\EnigmaAI\Train\train-e300-i608-w6-v8m2\weights\last.pt
 data: C:\Users\pc\Github\EnigmaAI/src/datasets/forest-fire-detection-9/data.yaml
 epochs: 300
 time: null
@@ -13,7 +13,7 @@ cache: false
 device: cuda:0
 workers: 6
 project: Train
-name: train-e300-i608-w6-v8s
+name: train-e300-i608-w6-v8m2
 exist_ok: false
 pretrained: true
 optimizer: auto
@@ -102,4 +102,4 @@ erasing: 0.4
 crop_fraction: 1.0
 cfg: null
 tracker: botsort.yaml
-save_dir: Train\train-e300-i608-w6-v8s
+save_dir: Train\train-e300-i608-w6-v8m2

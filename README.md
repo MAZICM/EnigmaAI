@@ -3,7 +3,7 @@
 
 
 
-# <h1 style="font-size:40px; text-align:center;"> AI-ATAR
+# <h1 style="font-size:40px; text-align:center;"> EnigmaAI
 <h6 style="font-size:40px; text-align:center;"> Real-Time Forest Fire Detection
 
 ## <h2 style="font-size:30px; ">Introduction</h2>
@@ -20,7 +20,7 @@
 - **Efficient Algorithms**: Utilize YOLO models for accurate and rapid fire detection.
 - **Customization**: Easily adapt the models and configurations to suit specific detection requirements.
 - **Live Streaming**: Enable live fire detection from webcams or video sources for immediate monitoring.
-# YOLOv8 Model Training using the `python -m App` Command
+# YOLOv8 Model Training using the `python -m EnigmaAI` Command
 
 Welcome to the guide on how to train a YOLOv8 model using the `python -m App` command. YOLOv8 is a popular object detection algorithm known for its speed and accuracy. This guide will walk you through the steps required to train your own YOLOv8 model using the provided Python script.
 
@@ -78,23 +78,23 @@ Before you begin, make sure you have the following prerequisites installed:
 
 1. Clone this repository:
    ```sh
-   user@ubuntu:~$  git clone https://github.com/MAZICM/AI-ATAR.git
+   user@ubuntu:~$  git clone https://github.com/MAZICM/EnigmaAI.git
    ```
 2. Access the Repo:
    ```sh
-   user@ubuntu:~$ cd AI-ATAR/
+   user@ubuntu:~$ cd EnigmaAI/
    ```
 3. Create your Python env :
    ```sh
-   user@ubuntu:~/AI-ATAR$ python3 -m venv venv
+   user@ubuntu:~/EnigmaAI$ python3 -m venv venv
    ```
 4. Activate your python env:
    ```sh
-   (venv) user@ubuntu:~/AI-ATAR$ source  venv/bin/activate
+   (venv) user@ubuntu:~/EnigmaAI$ source  venv/bin/activate
    ```
 5. Install the required dependencies:
    ```sh
-   (venv) user@ubuntu:~/AI-ATAR$ pip install -r requirements.txt
+   (venv) user@ubuntu:~/EnigmaAI$ pip install -r requirements.txt
    ```
 ## <h2 style="font-size:30px; ">Configuration
 >Configuring and adapting the fire and smoke detection to your specific requirements is straightforward. Simply follow these steps:
@@ -134,13 +134,13 @@ Before you begin, make sure you have the following prerequisites installed:
 Run the `App.py` file to access all the utilities .
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -m App
+(venv) user@ubuntu:~/EnigmaAI$ python -m App
 ```
 
 OUTPUT
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -m App
+(venv) user@ubuntu:~/EnigmaAI$ python -m App
 
 
 Welcome To ATAR ! :)
@@ -179,13 +179,13 @@ Execution time: 0.00 seconds
 Run the `videoDetect()` function to detect fires in a video file.
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -c 'from src.Utilities.vDetect import video_detect; video_detect()'
+(venv) user@ubuntu:~/EnigmaAI$ python -c 'from src.Utilities.vDetect import video_detect; video_detect()'
 ```
 
 OUTPUT
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -c 'from src.Utilities.vDetect import video_detect; video_detect()'
+(venv) user@ubuntu:~/EnigmaAI$ python -c 'from src.Utilities.vDetect import video_detect; video_detect()'
 
 
             1. video1.mp4
@@ -205,7 +205,7 @@ python -c 'from src.Utilities.sDetect import stream; stream()'
 OUTPUT
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -c 'from src.Utilities.sDetect import stream; stream()'
+(venv) user@ubuntu:~/EnigmaAI$ python -c 'from src.Utilities.sDetect import stream; stream()'
 
 STREAM START
 2023-08-25 23:53:12,919 - INFO
@@ -225,7 +225,7 @@ OUTPUT
 
 ```sh
 
-(venv) user@ubuntu:~/AI-ATAR$  python -c 'from src.Utilities.modelTrain import m_train; m_train()'
+(venv) user@ubuntu:~/EnigmaAI$  python -c 'from src.Utilities.modelTrain import m_train; m_train()'
 
 
             1. yolov8n.pt
@@ -248,7 +248,7 @@ python -c 'from src.Utilities.modelValid import m_valid; m_valid()'
 OUTPUT
 
 ```sh
-(venv) user@ubuntu:~/AI-ATAR$ python -c 'from src.Utilities.modelValid import m_valid; m_valid()'
+(venv) user@ubuntu:~/EnigmaAI$ python -c 'from src.Utilities.modelValid import m_valid; m_valid()'
 
 
             1. train-e100-i256-w8-v8s
@@ -287,7 +287,7 @@ Check out the curated "Fire Detection" dataset by vishwaketu-malakar-o9d0b:
 
 > We have used this dataset for the testing of this tool 
 > we will be evaluating the performance later on together on some models trained under this dataset
-- [Fire Detection Dataset](https://universe.roboflow.com/vishwaketu-malakar-o9d0b/fire-detection-7oyym/dataset/6#)
+- [Fire Detection Dataset](https://https://universe.roboflow.com/ghulam-ishaq-khan-institute-3qit1/forest-fire-detection-fis51/dataset/9#)
 > follow this preview in order to download your dataset : 
 >- either dowload as zip and extract and put on the directory "src/datasets/" and move directly to the training process
 >- or get the strings provided in the download code and insert them respectively like this 
@@ -296,7 +296,7 @@ Check out the curated "Fire Detection" dataset by vishwaketu-malakar-o9d0b:
 EXAMPLE RUN
 
 ```sh
-    (venv) user@ubuntu:~/MAZICM/AI-ATAR$ python -m App
+    (venv) user@ubuntu:~/MAZICM/EnigmaAI$ python -m App
     
     
     Welcome To ATAR ! :)
@@ -404,7 +404,7 @@ Execution time: 0.00 seconds
           ======> Insert device Value   : 0
 
           ======> Insert workers Value  : 8
-Downloading https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt to '/home/kenaro/MAZICM/AI-ATAR/src/yolov8DefaultModels/yolov8n.pt'...
+Downloading https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt to '/home/kenaro/MAZICM/EnigmaAI/src/yolov8DefaultModels/yolov8n.pt'...
 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 6.23M/6.23M [00:03<00:00, 2.17MB/s]
 
 Training START
@@ -412,7 +412,7 @@ Training START
 
 
 Ultralytics YOLOv8.0.173 🚀 Python-3.11.4 torch-2.0.1+cu117 CUDA:0 (NVIDIA GeForce 930MX, 2003MiB)
-engine/trainer: task=detect, mode=train, model=/home/kenaro/MAZICM/AI-ATAR/src/yolov8DefaultModels/yolov8n.pt, data=/home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/data.yaml, 
+engine/trainer: task=detect, mode=train, model=/home/kenaro/MAZICM/EnigmaAI/src/yolov8DefaultModels/yolov8n.pt, data=/home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/data.yaml, 
 epochs=50, patience=50, batch=16, imgsz=256, save=True, save_period=-1, cache=False, device=0, 
 workers=8, project=Train, name=train-e50-i256-w8-v8n, exist_ok=False, pretrained=True, 
 optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, 
@@ -501,7 +501,7 @@ Training START
 
 
 Ultralytics YOLOv8.0.173 🚀 Python-3.11.4 torch-2.0.1+cu117 CUDA:0 (NVIDIA GeForce 930MX, 2003MiB)
-engine/trainer: task=detect, mode=train, model=/home/kenaro/MAZICM/AI-ATAR/Train/train-e6-i156-w4-v8l/weights/last.pt, data=/home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/data.yaml, epochs=6, patience=50, batch=16, imgsz=160, save=True, save_period=-1, cache=False, device=0, workers=4, project=Train, name=train-e6-i156-w4-v8l, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, show=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, vid_stride=1, stream_buffer=False, line_width=None, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, boxes=True, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.1, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.0, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, cfg=None, tracker=botsort.yaml, save_dir=Train/train-e6-i156-w4-v8l
+engine/trainer: task=detect, mode=train, model=/home/kenaro/MAZICM/EnigmaAI/Train/train-e6-i156-w4-v8l/weights/last.pt, data=/home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/data.yaml, epochs=6, patience=50, batch=16, imgsz=160, save=True, save_period=-1, cache=False, device=0, workers=4, project=Train, name=train-e6-i156-w4-v8l, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, show=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, vid_stride=1, stream_buffer=False, line_width=None, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, boxes=True, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.1, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.0, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, cfg=None, tracker=botsort.yaml, save_dir=Train/train-e6-i156-w4-v8l
 
                    from  n    params  module                                       arguments                     
   0                  -1  1      1856  ultralytics.nn.modules.conv.Conv             [3, 64, 3, 2]                 
@@ -533,13 +533,13 @@ Transferred 595/595 items from pretrained weights
 Freezing layer 'model.22.dfl.conv.weight'
 AMP: running Automatic Mixed Precision (AMP) checks with YOLOv8n...
 AMP: checks passed ✅
-train: Scanning /home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/train/labels.cache... 2703 images, 0 backgrounds, 0 corrupt: 100%|██████████| 2703/2703 [00:00<
+train: Scanning /home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/train/labels.cache... 2703 images, 0 backgrounds, 0 corrupt: 100%|██████████| 2703/2703 [00:00<
 WARNING ⚠️ Box and segment counts should be equal, but got len(segments) = 313, len(boxes) = 11740. To resolve this only boxes will be used and all segments will be removed. To avoid this please supply either a detect or segment dataset, not a detect-segment mixed dataset.
-val: Scanning /home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
+val: Scanning /home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
 WARNING ⚠️ Box and segment counts should be equal, but got len(segments) = 12, len(boxes) = 909. To resolve this only boxes will be used and all segments will be removed. To avoid this please supply either a detect or segment dataset, not a detect-segment mixed dataset.
 Plotting labels to Train/train-e6-i156-w4-v8l/labels.jpg... 
 optimizer: AdamW(lr=0.001667, momentum=0.9) with parameter groups 97 weight(decay=0.0), 104 weight(decay=0.0005), 103 bias(decay=0.0)
-Resuming training from /home/kenaro/MAZICM/AI-ATAR/Train/train-e6-i156-w4-v8l/weights/last.pt from epoch 4 to 6 total epochs
+Resuming training from /home/kenaro/MAZICM/EnigmaAI/Train/train-e6-i156-w4-v8l/weights/last.pt from epoch 4 to 6 total epochs
 Closing dataloader mosaic
 Image sizes 160 train, 160 val
 Using 4 dataloader workers
@@ -616,7 +616,7 @@ Validation START
 
 Ultralytics YOLOv8.0.173 🚀 Python-3.11.4 torch-2.0.1+cu117 CUDA:0 (NVIDIA GeForce 930MX, 2003MiB)
 Model summary (fused): 268 layers, 43608150 parameters, 0 gradients
-val: Scanning /home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
+val: Scanning /home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
 WARNING ⚠️ Box and segment counts should be equal, but got len(segments) = 12, len(boxes) = 909. To resolve this only boxes will be used and all segments will be removed. To avoid this please supply either a detect or segment dataset, not a detect-segment mixed dataset.
                  Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 13/13 [00:20<00:00,  1.61s/it]
                    all        203        909      0.355      0.343      0.268        0.1
@@ -645,7 +645,7 @@ Validation EXIT
 ![3.png](Train/train-e300-i608-w6-v8s/val_batch1_pred.jpg)
 ### Yolov8m
 <br>Train/train-e300-i256-w8-v8s/val_batch1_pred.jpg
-![3.png](Train/train-e300-i256-w8-v8m/val_batch1_pred.jpg)
+![3.png](Train/train-e300-i608-w6-v8m/val_batch1_pred.jpg)
 
 ## [Test on local video sample](#Test on local video sample)
 
@@ -708,7 +708,7 @@ Validation START
 
 Ultralytics YOLOv8.0.173 🚀 Python-3.11.4 torch-2.0.1+cu117 CUDA:0 (NVIDIA GeForce 930MX, 2003MiB)
 Model summary (fused): 268 layers, 43608150 parameters, 0 gradients
-val: Scanning /home/kenaro/MAZICM/AI-ATAR/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
+val: Scanning /home/kenaro/MAZICM/EnigmaAI/src/datasets/Fire-Detection-6/valid/labels.cache... 203 images, 0 backgrounds, 0 corrupt: 100%|██████████| 203/203 [00:00<?, ?i
 WARNING ⚠️ Box and segment counts should be equal, but got len(segments) = 12, len(boxes) = 909. To resolve this only boxes will be used and all segments will be removed. To avoid this please supply either a detect or segment dataset, not a detect-segment mixed dataset.
                  Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 13/13 [00:20<00:00,  1.61s/it]
                    all        203        909      0.355      0.343      0.268        0.1
@@ -729,8 +729,8 @@ Validation EXIT
 
 User chose not to proceed.
 2023-09-08 05:35:24,321 - CRITICAL
-(venv) (base) kenaro@rasmus:~/MAZICM/AI-ATAR$ clear
-(venv) (base) kenaro@rasmus:~/MAZICM/AI-ATAR$ python -m App
+(venv) (base) kenaro@rasmus:~/MAZICM/EnigmaAI$ clear
+(venv) (base) kenaro@rasmus:~/MAZICM/EnigmaAI$ python -m App
 
 
 Welcome To ATAR ! :)
