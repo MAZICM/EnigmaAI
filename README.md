@@ -4,7 +4,7 @@
 
 
 # <h1 style="font-size:40px; text-align:center;"> EnigmaAI
-<h6 style="font-size:40px; text-align:center;"> Real-Time Forest Fire Detection
+<h6 style="font-size:40px; text-align:center;"> Real time AI Model Generator
 
 ## <h2 style="font-size:30px; ">Introduction</h2>
 
