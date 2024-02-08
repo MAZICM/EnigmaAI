@@ -5,11 +5,6 @@ __pycache__/
 qodana.yaml
 venv/
 *.pt
-yolov8n.pt
-yolov8s.pt
-yolov8m.pt
-yolov8l.pt
-yolov8x.pt
-best.pt
-last.pt
 Fire-Detection-6
+forest-fire-detection-9/
+train/*/weights/
