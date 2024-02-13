@@ -1,9 +1,9 @@
 import Layout from './components/Layout';
 
-const Home = () => {
+const Video_Test = () => {
     return (
         <Layout/>
     );
 };
 
-export default Home;
+export default Video_Test;

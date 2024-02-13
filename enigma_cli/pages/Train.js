@@ -1,9 +1,9 @@
 import Layout from './components/Layout';
 
-const Home = () => {
+const Train = () => {
     return (
         <Layout/>
     );
 };
 
-export default Home;
+export default Train;

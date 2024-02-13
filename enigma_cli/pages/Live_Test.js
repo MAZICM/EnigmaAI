@@ -1,9 +1,9 @@
 import Layout from './components/Layout';
 
-const Home = () => {
+const Live_Test = () => {
     return (
         <Layout/>
     );
 };
 
-export default Home;
+export default Live_Test;

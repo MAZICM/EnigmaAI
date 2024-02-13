@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Layout from './components/Layout';
 
-const DatasetTab = () => {
+const Dataset = () => {
     const [api_key, setApiKey] = useState('');
     const [workspace, setWorkspace] = useState('');
     const [project, setProject] = useState('');
@@ -39,7 +40,7 @@ const DatasetTab = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <Layout className="min-h-screen flex items-center justify-center">
             <form onSubmit={handleDownload} className="bg-white p-8 rounded shadow-md w-96">
                 <h1 className="text-2xl font-semibold mb-6">Roboflow Dataset Download</h1>
                 <div className="mb-4">
@@ -101,8 +102,8 @@ const DatasetTab = () => {
                 </button>
                 {error && <p className="text-red-500 mt-2">{error}</p>}
             </form>
-        </div>
+        </Layout>
     );
 };
 
-export default DatasetTab;
+export default Dataset;
