@@ -1,6 +1,5 @@
 from roboflow import Roboflow
 import time
-
 import os
 import sys
 
@@ -10,7 +9,16 @@ def roboflow_dataset(api_key, workspace, project, version, download):
     try:
         print("\nDOWNLOAD START")
         print("\n")
-        os.chdir("../../src/datasets/")
+        current_directory = os.getcwd()
+        print("Current Working Directory:", current_directory)
+        os.chdir("src")
+        new_directory_path = "./datasets"
+        # Check if the directory was created
+        if os.path.exists(new_directory_path):
+            print(f"Directory '{new_directory_path}' created successfully.")
+        else:
+            os.makedirs(new_directory_path, exist_ok=True)
+        os.chdir("./datasets/")
         start_time = time.time()
 
         rf = Roboflow(api_key=api_key)
