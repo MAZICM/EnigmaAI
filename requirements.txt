@@ -1,3 +1,10 @@
 ultralytics
 roboflow
 supervision
+
+!pip install roboflow
+
+from roboflow import Roboflow
+rf = Roboflow(api_key="ojhPsid00Hn7Z15XVt1M")
+project = rf.workspace("meredith-lo-pmqx7").project("asl-project")
+dataset = project.version(17).download("yolov8")
