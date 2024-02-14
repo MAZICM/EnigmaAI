@@ -10,3 +10,4 @@ forest-fire-detection-9/
 train/*/weights/
 runs/Streams/*.mp4
 src/datasets/*
+Train/*

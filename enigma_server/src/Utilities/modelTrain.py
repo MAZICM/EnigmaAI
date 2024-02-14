@@ -3,68 +3,52 @@ import time
 import torch
 
 from ultralytics import YOLO
-
-from src.Utilities import flexMenu
 from src.Utilities import log
 
-
-def m_train():
+def m_train(model_name, dataset_name, epochs, imgsz, workers):
     start_time = time.time()
-    m=""
-    device =""
     try:
-        # Code that might raise an exception
-        f = ['yolov8n.pt', 'yolov8s.pt', 'yolov8m.pt', 'yolov8l.pt', 'yolov8x.pt']
-        model_path = os.getcwd() + "/src/yolov8DefaultModels/"
-        model_name = flexMenu.display_options(f)
-        model_path = model_path + model_name
-        data_path = "src/datasets"
-        f = os.listdir(data_path)
-        y = os.getcwd()
-        print("\n\t DATASETS :")
-        x = flexMenu.display_options(f)
-        data_path = y + "/" + data_path + "/" + x + "/data.yaml"
-        print("\n\tConfigure Training Parameters : ")
-        epochs = int(input("\n\t  ======> Insert Epochs Value   : "))
-        imgsz = int(input("\n\t  ======> Insert imgsz Value    : "))
-        if torch.cuda.is_available():
-            device = torch.device(0)  # Use the first GPU (index 0)
-        else:
-            device = torch.device("cpu")  # Use the CPU
+        # Set device based on GPU availability
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
+        # Define model paths
+        model_dir = os.path.join(os.getcwd(), 'src', 'yolov8DefaultModels')
+        model_path = os.path.join(model_dir, model_name)
 
-        workers = int(input("\n\t  ======> Insert workers Value  : "))
+        # Define data path
+        data_path = os.path.join(os.getcwd(), 'src', 'datasets', dataset_name, 'data.yaml')
+
+        # Map model_name to its corresponding letter
+        model_mapping = {'yolov8n.pt': 'n', 'yolov8s.pt': 's', 'yolov8m.pt': 'm', 'yolov8l.pt': 'l', 'yolov8x.pt': 'x'}
+        m = model_mapping.get(model_name, '')
+
+        # Set project name
         project = "Train"
-        if model_name == "yolov8n.pt":
-            m = "n"
-        elif model_name == "yolov8s.pt":
-            m = "s"
-        elif model_name == "yolov8m.pt":
-            m = "m"
-        elif model_name == "yolov8l.pt":
-            m = "l"
-        elif model_name == "yolov8x.pt":
-            m = "x"
 
-        name = "train-e" + str(epochs) + "-i" + str(imgsz) + "-w" + str(workers) + "-" + "v8" + m
-        start_time = time.time()
+        # Define a unique name for this training run
+        name = f'train-e{epochs}-i{imgsz}-w{workers}-v8{m}'
+
+        # Initialize YOLO model
         model = YOLO(model_path)
-        log.logger.info("\nTraining START")
-        print("\n")
+
+        # Log training start
+        log.logger.info('\nTraining START')
+        print('\n')
+
+        # Start training
         model.train(data=data_path, epochs=epochs, imgsz=imgsz, device=device,
                     workers=workers, project=project, name=name, show_labels=True,
                     lr0=0.1)
 
     except Exception as e:
-        # Code to handle other exceptions
+        # Handle exceptions
         end_time = time.time()
-        log.logger.error(f"\nAn error occurred: {e}\nExecution time: %.2f seconds", end_time - start_time)
+        log.logger.error(f'\nAn error occurred: {e}\nExecution time: %.2f seconds', end_time - start_time)
     else:
-        # Code to run if no exception occurred
+        # Log success if no exceptions occurred
         end_time = time.time()
-        log.logger.info("\nNo errors occurred DONE SUCESS\nExecution time: %.2f seconds", end_time - start_time)
-
+        log.logger.info('\nNo errors occurred. DONE SUCCESS\nExecution time: %.2f seconds', end_time - start_time)
     finally:
-        # Code that will run regardless of whether an exception occurred
-        log.logger.critical("\nTrainning EXIT")
-        print("\n")
+        # Log training exit
+        log.logger.critical('\nTraining EXIT')
+        print('\n')
