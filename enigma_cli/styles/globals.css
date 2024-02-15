@@ -1,9 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+/*
 body{
     background-color:#297373;
 }
 .link{
     background-color:#34a853;
 }
+*/
