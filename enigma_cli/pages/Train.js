@@ -3,8 +3,8 @@ import Layout from './components/Layout';
 import axios from 'axios';
 
 const Train = () => {
-  const [selectedModel, setSelectedModel] = useState(null);
-  const [selectedDataset, setSelectedDataset] = useState(null);
+  const [selectedModel, setSelectedModel] = useState('');
+  const [selectedDataset, setSelectedDataset] = useState('');
   const [epochs, setEpochs] = useState(10);
   const [imgsz, setImgsz] = useState(416);
   const [workers, setWorkers] = useState(4);
@@ -12,11 +12,14 @@ const Train = () => {
   const models = ['yolov8n.pt', 'yolov8s.pt', 'yolov8m.pt', 'yolov8l.pt', 'yolov8x.pt'];
 
   useEffect(() => {
-    // Fetch datasets when the component mounts
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:5001/get_datasets');
         setDatasets(response.data.datasets);
+
+        if (response.data.datasets.length > 0) {
+          setSelectedDataset(response.data.datasets[0]);
+        }
       } catch (error) {
         console.error('Error fetching datasets:', error);
       }
@@ -27,39 +30,37 @@ const Train = () => {
 
   const handleSelectModel = (model) => {
     setSelectedModel(model);
-    // Optionally, set the default selected dataset for the chosen model
-    setSelectedDataset(datasets[0]); // For example, selecting the first dataset by default
+
+    if (datasets.length > 0) {
+      setSelectedDataset(datasets[0]);
+    }
   };
 
   const handleSelectDataset = (dataset) => {
     setSelectedDataset(dataset);
   };
 
-  const handleTrainModel = async () => {
+  const handleTrainModel = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
     try {
-      // Verification checks
       if (!selectedModel || !selectedDataset || !epochs || !imgsz || !workers) {
         alert('Please fill in all the required fields');
         return;
       }
 
-      // Convert 'epochs' to integer
       const epochsInt = parseInt(epochs, 10);
       const workersInt = parseInt(workers, 10);
       const imgszInt = parseInt(imgsz, 10);
-      const scriptPath = 'C:\\Users\\marom\\Desktop\\Enigma\\EnigmaAI\\src\\Utilities\\modelTrain.py';
+      const scriptPath = 'C:\\Users\\pc\\Github\\EnigmaAI\\enigma_serversrc\\Utilities\\modelTrain.py';
 
-      // Make a POST request to the server-side script
       const response = await axios.post('http://localhost:5001/run_python_script', {
         script_path: scriptPath,
         args: [selectedModel, selectedDataset, epochsInt, imgszInt, workersInt],
       });
 
       console.log(response.data);
-
-      // Handle the response from the server-side script as needed
     } catch (error) {
-      // Handle errors
       console.error('Error:', error);
     }
   };
@@ -71,7 +72,6 @@ const Train = () => {
           <form onSubmit={handleTrainModel} className="space-y-4">
             <h1 className="text-2xl font-semibold text-center text-gray-800">Model Training</h1>
 
-            {/* Select Model Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Select Model:</label>
               <select
@@ -87,30 +87,24 @@ const Train = () => {
               </select>
             </div>
 
-            {/* Display Selected Model */}
             {selectedModel && <p className="text-lg mb-2">Selected Model: {selectedModel}</p>}
+            {selectedDataset && <p className="mt-4">Selected Dataset: {selectedDataset}</p>}
 
-            {/* Select Dataset Buttons */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Select Dataset:</label>
-              <div className="flex space-x-2">
+              <select
+                value={selectedDataset}
+                onChange={(e) => handleSelectDataset(e.target.value)}
+                className="mt-1 p-2 w-full border rounded-md"
+              >
                 {datasets.map((dataset, index) => (
-                  <button
-                    key={index}
-                    className={`px-4 py-2 rounded-md ${
-                      selectedDataset === dataset
-                        ? 'bg-primary text-white border border-primary'
-                        : 'bg-gray-200 text-gray-700'
-                    }`}
-                    onClick={() => handleSelectDataset(dataset)}
-                  >
+                  <option key={index} value={dataset}>
                     {dataset}
-                  </button>
+                  </option>
                 ))}
-              </div>
+              </select>
             </div>
 
-            {/* Training Parameters */}
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Epochs:</label>
@@ -141,10 +135,10 @@ const Train = () => {
               </div>
             </div>
 
-            {/* Train Model Button */}
             <button
               type="submit"
-              className="w-full bg-primary text-white p-4 rounded-md hover:bg-opacity-80 focus:outline-none">
+              className="w-full bg-primary text-white p-4 rounded-md hover:bg-opacity-80 focus:outline-none"
+            >
               Train Model
             </button>
           </form>
