@@ -4,6 +4,7 @@ from flask_cors import CORS
 from src.Utilities.roboFlowDataSet import roboflow_dataset
 from src.Utilities.modelTrain import m_train  # Import your training function
 from src.Utilities.modelValid import m_valid
+from src.Utilities.vDetect import video_detect
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -27,6 +28,8 @@ def run_python_script():
             m_train(*args)
         elif script_path.endswith('modelValid.py'):
             m_valid(*args)
+        elif script_path.endswith('modelValid.py'):
+            video_detect(*args)   
         else:
             return jsonify({"result": None, "error": "Invalid script path"}), 400
 
@@ -46,7 +49,7 @@ def get_datasets():
 def get_Trained_models():
     try:
         Tmodels = os.listdir(TmodelsPath)
-        return jsonify({"datasets": Tmodels})
+        return jsonify({"Tmodels": Tmodels})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -56,6 +59,39 @@ def get_weights(training):
         weights_path = os.path.join(TmodelsPath, training, 'weights')
         weights = os.listdir(weights_path)
         return jsonify({"weights": weights})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/upload_video', methods=['POST'])
+def upload_video():
+    try:
+        # Handle video upload logic here and return the video URL
+        # For simplicity, let's assume you have a video folder in the project root
+        video_folder = os.path.join(os.getcwd(), 'videosUploads')
+        if not os.path.exists(video_folder):
+            os.makedirs(video_folder)
+
+        uploaded_video = request.files['video']
+        video_path = os.path.join(video_folder, uploaded_video.filename)
+        uploaded_video.save(video_path)
+
+        return jsonify({"videoUrl": video_path})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/run_video_test', methods=['POST'])
+def run_video_test():
+    try:
+        data = request.get_json()
+        video_url = data.get('videoUrl', '')
+        training = data.get('training', '')
+        weight = data.get('weight', '')
+        threshold = data.get('threshold', 0.5)
+
+        # Run the video detection script
+        result_url = video_detect(video_url, training, weight, threshold)
+
+        return jsonify({"resultUrl": result_url})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

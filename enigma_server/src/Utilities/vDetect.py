@@ -5,38 +5,29 @@ import time
 from src.Utilities import log
 from src.Utilities import flexMenu
 
-def video_detect():
-    f = os.listdir(os.getcwd() + "/runs/Videos/localSamples/")
-    filename = flexMenu.display_options(f)
-    f = os.listdir(os.getcwd()+"/Train")
-    m = flexMenu.display_options(f)
-    model_path = os.getcwd() + "/Train/"+m+"/weights/"
-    f = os.listdir(model_path)
-    mt = flexMenu.display_options(f)
-    model_path = model_path + mt
-    threshold = input("enter threshold :")
-
-
-    video_dir = os.path.join(os.getcwd(),'runs','Videos')
-
-    log.logger.info("\nDetection START")
-    start_time = time.time()
+def video_detect(video_path, model_name, weight_name, threshold):
     try:
-        # Code that might raise an exception
-        video_path = os.path.join(video_dir+"/localSamples", filename)
-        mt = mt.rsplit(".", 1)[0]
-        filename = filename.rsplit(".", 1)[0]
-        filename = filename+"-"+m+"-"+mt+"-"+threshold
-        video_path_out = os.path.join(video_dir+"/Scans", filename)
-        video_path_out = '{}_out.mp4'.format(video_path_out)
+        video_dir = os.path.join(os.getcwd(), 'runs', 'Videos')
+        model_path = os.path.join(os.getcwd(), 'Train', model_name, 'weights', weight_name)
+
+        log.logger.info("\nDetection START")
+        start_time = time.time()
+
+        filename = os.path.splitext(os.path.basename(video_path))[0]
+        output_filename = f"{filename}-{model_name}-{weight_name}-{threshold}_out.mp4"
+        output_folder = os.path.join('videoOutput')
+        output_path = os.path.join(output_folder, output_filename)
+
+        # Create the 'videoOutput' folder if it doesn't exist
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
         cap = cv2.VideoCapture(video_path)
         ret, frame = cap.read()
         h, w, _ = frame.shape
-        out = cv2.VideoWriter(video_path_out, cv2.VideoWriter_fourcc(*'MP4V'), int(cap.get(cv2.CAP_PROP_FPS)), (w, h))
-        # model_path = os.path.join('.', 'test', 'train1', 'weights', 'best.pt')
-        # Load a model
-        model = YOLO(model_path)  # load a custom model
-        # threshold = 0.7
+        out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'MP4V'), int(cap.get(cv2.CAP_PROP_FPS)), (w, h))
+
+        model = YOLO(model_path)
 
         while ret:
             results = model(frame)[0]
@@ -48,18 +39,16 @@ def video_detect():
                                 cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 255, 0), 3, cv2.LINE_AA)
             out.write(frame)
             ret, frame = cap.read()
+
         cap.release()
         out.release()
         cv2.destroyAllWindows()
+
+        end_time = time.time()
+        log.logger.info("\nNo errors occurred DONE SUCCESS\nExecution time: %.2f seconds", end_time - start_time)
+        log.logger.info(f"\nOutput path: {output_path}")
+        return output_path
     except Exception as e:
-        # Code to handle other exceptions
         end_time = time.time()
         log.logger.error(f"\nAn error occurred: {e}\nExecution time: %.2f seconds", end_time - start_time)
-    else:
-        # Code to run if no exception occurred
-        # Code to run if no exception occurred
-        end_time = time.time()
-        log.logger.info("\nNo errors occurred DONE SUCESS\nExecution time: %.2f seconds", end_time - start_time)
-    finally:
-        # Code that will run regardless of whether an exception occurred
-        log.logger.warning("\nDetection EXIT\n")
+        return str(e), 500

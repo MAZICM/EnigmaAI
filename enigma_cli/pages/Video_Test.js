@@ -1,19 +1,48 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Layout from './components/Layout';
 import axios from 'axios';
 
 const Video_Test = () => {
-  const [selectedModel, setSelectedModel] = useState(null);
+  const [trainingFolders, setTrainingFolders] = useState([]);
+  const [selectedTraining, setSelectedTraining] = useState('');
+  const [weights, setWeights] = useState([]);
+  const [selectedWeight, setSelectedWeight] = useState('');
   const [threshold, setThreshold] = useState(0.5);
   const [videoFile, setVideoFile] = useState(null);
   const [resultUrl, setResultUrl] = useState(null);
 
   const videoInputRef = useRef(null);
 
-  const models = ['yolov8n.pt', 'yolov8s.pt', 'yolov8m.pt', 'yolov8l.pt', 'yolov8x.pt'];
+  useEffect(() => {
+    // Fetch training folders when the component mounts
+    const fetchTrainingFolders = async () => {
+      try {
+        const response = await axios.get('http://localhost:5001/get_T-Models');
+        setTrainingFolders(response.data.Tmodels);
+      } catch (error) {
+        console.error('Error fetching training folders:', error);
+      }
+    };
 
-  const handleSelectModel = (model) => {
-    setSelectedModel(model);
+    fetchTrainingFolders();
+  }, []);
+
+  const handleSelectTraining = async (training) => {
+    setSelectedTraining(training);
+    // Fetch weights for the selected training from the backend
+    try {
+      const response = await axios.get(`http://localhost:5001/get_weights/${training}`);
+      const weights = response.data.weights;
+      // Update selected weight to the first one in the list (you can change this behavior if needed)
+      setSelectedWeight(weights.length > 0 ? weights[0] : '');
+      setWeights(weights);
+    } catch (error) {
+      console.error('Error fetching weights:', error);
+    }
+  };
+
+  const handleSelectWeight = (weight) => {
+    setSelectedWeight(weight);
   };
 
   const handleThresholdChange = (e) => {
@@ -28,7 +57,7 @@ const Video_Test = () => {
   const handleRunVideoTest = async () => {
     try {
       // Verification checks
-      if (!selectedModel || !threshold || !videoFile) {
+      if (!selectedTraining || !selectedWeight || !threshold || !videoFile) {
         alert('Please fill in all the required fields');
         return;
       }
@@ -46,7 +75,8 @@ const Video_Test = () => {
       // Make another POST request to run the video test with model and threshold
       const runTestResponse = await axios.post('http://localhost:5001/run_video_test', {
         videoUrl: uploadedVideoUrl,
-        model: selectedModel,
+        training: selectedTraining,
+        weight: selectedWeight,
         threshold: parseFloat(threshold),
       });
 
@@ -68,23 +98,38 @@ const Video_Test = () => {
       <div className="max-w-lg mx-auto p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4">Video Detection Test</h2>
 
-        {/* Select Model Dropdown */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Select Model:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Select Training:</label>
           <select
-            value={selectedModel}
-            onChange={(e) => handleSelectModel(e.target.value)}
+            value={selectedTraining}
+            onChange={(e) => handleSelectTraining(e.target.value)}
             className="w-full p-2 border rounded-md focus:outline-none focus:border-primary"
           >
-            {models.map((model) => (
-              <option key={model} value={model}>
-                {model}
+            {trainingFolders.map((training) => (
+              <option key={training} value={training}>
+                {training}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Detection Threshold Input */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Select Weight:</label>
+          <select
+            value={selectedWeight}
+            onChange={(e) => handleSelectWeight(e.target.value)}
+            className="mt-1 p-2 w-full border rounded-md"
+          >
+            {weights.map((weight) => (
+              <option key={weight} value={weight}>
+                {weight}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {selectedWeight && <p className="text-lg mb-2">Selected Weight: {selectedWeight}</p>}
+
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Detection Threshold:</label>
           <input
@@ -96,7 +141,6 @@ const Video_Test = () => {
           />
         </div>
 
-        {/* Video Upload */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Upload Video:</label>
           <input
@@ -108,7 +152,6 @@ const Video_Test = () => {
           />
         </div>
 
-        {/* Run Video Test Button */}
         <button
           onClick={handleRunVideoTest}
           className="w-full bg-primary text-white p-4 rounded-md hover:bg-opacity-80 focus:outline-none"
@@ -116,7 +159,6 @@ const Video_Test = () => {
           Run Video Test
         </button>
 
-        {/* Display or Download Result URL */}
         {resultUrl && (
           <div className="mt-4">
             <p className="text-lg mb-2">Test Result:</p>

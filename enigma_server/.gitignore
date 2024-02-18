@@ -11,3 +11,7 @@ train/*/weights/
 runs/Streams/*.mp4
 src/datasets/*
 Train/*
+Vaild/*
+
+videoOutput/*
+videosUploads/*
