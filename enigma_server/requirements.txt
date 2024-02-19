@@ -12,3 +12,10 @@ dataset = project.version(17).download("yolov8")
 rf = Roboflow(api_key="ojhPsid00Hn7Z15XVt1M")
 project = rf.workspace("asterbyte").project("emotion-detection-girec")
 dataset = project.version(5).download("yolov8")
+
+!pip install roboflow
+
+from roboflow import Roboflow
+rf = Roboflow(api_key="1F10ZNdjV7NFepJ29yoE")
+project = rf.workspace("computer-vision-d5fjh").project("basketball-detection-dn6fg")
+dataset = project.version(1).download("yolov8")

@@ -5,7 +5,6 @@ import axios from 'axios';
 const Validation = () => {
   const [selectedTraining, setSelectedTraining] = useState('');
   const [selectedWeight, setSelectedWeight] = useState('');
-  const [datasets, setDatasets] = useState([]);
   const [models, setModels] = useState([]);
   const [weights, setWeights] = useState([]);
 
@@ -15,7 +14,7 @@ const Validation = () => {
         const trainedModelsResponse = await axios.get('http://localhost:5001/get_T-Models');
         console.log('Trained Models Response:', trainedModelsResponse.data);
 
-        setModels(trainedModelsResponse.data.datasets);
+        setModels(trainedModelsResponse.data.Tmodels);  // Update property name
       } catch (error) {
         console.error('Error fetching trained models:', error);
       }
