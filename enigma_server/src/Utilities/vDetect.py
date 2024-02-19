@@ -18,6 +18,7 @@ def video_detect(video_path, model_name, weight_name, threshold):
         output_folder = os.path.join('videoOutput')
         output_path = os.path.join(output_folder, output_filename)
 
+
         # Create the 'videoOutput' folder if it doesn't exist
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
